@@ -1,7 +1,7 @@
-const { connect, connection } = require('mongoose');
+const { connect } = require('mongoose');
 
 async function connectDb() {
-  connect(process.env.DB_HOST, {
+  await connect(process.env.DB_HOST, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

@@ -84,56 +84,6 @@ module.exports = {
     }
   },
   /**
-   * Create new user data
-   *
-   * @param {Express.Request} req
-   * @param {Express.Response} res
-   *
-   * @todo Write validation
-   * @todo Write image upload script
-   *
-   * @returns {Express.Response} Return created user data and set HTTP Only cookie
-   * from generated token JWT
-   */
-  create: async (req, res) => {
-    const { firstName, lastName, username, email, password } = req.body;
-
-    try {
-      const hashedPassword = await hashPassword(password);
-
-      const createdUser = await User.create({
-        firstName,
-        lastName,
-        username,
-        email,
-        password: hashedPassword
-      });
-
-      const token = jwt.sign(
-        { username: createdUser.username },
-        process.env.JWT_SECRET
-      );
-
-      res.cookie('token', token, { httpOnly: true });
-      return response(res, {
-        code: 201,
-        success: true,
-        message: 'Successfuly created new user!',
-        content: {
-          user: createdUser,
-          token
-        }
-      });
-    } catch (error) {
-      return response(res, {
-        code: 500,
-        success: false,
-        message: error.message || 'Something went wrong!',
-        content: error
-      });
-    }
-  },
-  /**
    * Update user data
    * @param {Express.Request} req
    * @param {Express.Response} res

@@ -14,6 +14,12 @@
    - **DB_HOST** = Define your Mongo DB Server
    - **JWT_SECRET** = Define your JSON Web Token secret
 
+## Running Application
+
+- Run `yarn devServer` to run development server
+- Run `yarn devClient` to run development client
+- Run `yarn dev` to run development server and client together using concurrently
+
 # Contribution
 
 1. Fork this repository

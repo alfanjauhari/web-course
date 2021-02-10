@@ -1,12 +1,22 @@
 const User = require('./user');
-const { isEmpty, response } = require('../../libs/helpers');
+const { isEmpty, response, hashPassword } = require('../../libs/helpers');
 const { NotFoundError, WrongPasswordError } = require('../../errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
+  /**
+   * Login user
+   *
+   * @param {Express.Request} req
+   * @param {Express.Response} res
+   *
+   * @todo Write validation
+   *
+   * @returns {Express.Response} Return authenticated user data
+   */
   login: async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
 
     try {
       const user = await User.findOne({
@@ -15,7 +25,7 @@ module.exports = {
             username
           },
           {
-            email
+            email: username
           }
         ]
       });
@@ -29,7 +39,10 @@ module.exports = {
           'Your password not match with our records!'
         );
 
-      const token = jwt.sign({ username: user.username });
+      const token = jwt.sign(
+        { username: user.username },
+        process.env.JWT_SECRET
+      );
 
       res.cookie('token', token, { httpOnly: true });
       return response(res, {

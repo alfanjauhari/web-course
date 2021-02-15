@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 // defines routes
 const usersRoutes = require('./components/users/usersApi');
+const coursesRoutes = require('./components/courses/coursesApi');
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use(
   })
 );
 app.use('/users', usersRoutes);
+app.use('/courses', coursesRoutes);
 
 module.exports = app;

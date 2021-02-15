@@ -22,7 +22,7 @@ module.exports = {
       return response(res, {
         code: 200,
         success: true,
-        message: 'Successfuly get users data!',
+        message: 'Successfully get users data!',
         content: users
       });
     } catch (error) {

@@ -42,27 +42,26 @@ module.exports = {
     }
   },
   /**
-   * Get specific course data with {title} parameter.
+   * Get specific course data with {slug} parameter.
    *
    * @param {Express.Request} req
    * @param {Express.Response} res
    *
    * @returns {Express.Response} Return ourse data with specific course data by querying
-   * {title} parameter from database
+   * {slug} parameter from database
    */
   getOne: async (req, res) => {
-    const { title } = req.params;
+    const { slug } = req.params;
 
     try {
-      const course = await Course.findOne({ title });
+      const course = await Course.findOne({ slug });
 
-      if (isEmpty(course))
-        throw new NotFoundError(`User with title ${title} not found!`);
+      if (isEmpty(course)) throw new NotFoundError(`Course with slug ${slug} not found!`);
 
       return response(res, {
         code: 200,
         success: true,
-        message: `Successfuly get ${title} data!`,
+        message: `Successfuly get ${slug} data!`,
         content: course
       });
     } catch (error) {
@@ -82,7 +81,7 @@ module.exports = {
       });
     }
   },
-   /**
+  /**
    * Insert new course
    *
    * @param {Express.Request} req
@@ -93,12 +92,13 @@ module.exports = {
    * @returns {Express.Response} Return created course data
    */
   insert: async (req, res) => {
-    const { teacherId, title, category, media, content } = req.body;
+    const { teacherId, title, slug, category, media, content } = req.body;
 
     try {
       const newCourse = await Course.create({
         teacherId,
         title,
+        slug,
         category,
         media,
         content
@@ -130,17 +130,18 @@ module.exports = {
    */
   update: async (req, res) => {
     const { id } = req.params;
-    const { teacherId, title, category, media, content } = req.body;
+    const { teacherId, title, slug, category, media, content } = req.body;
 
     try {
       const updatedCourse = await Course.findOneAndUpdate(
         id,
         {
-            teacherId,
-            title,
-            category,
-            media,
-            content
+          teacherId,
+          title,
+          slug,
+          category,
+          media,
+          content
         },
         { new: true }
       );

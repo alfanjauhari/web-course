@@ -2,10 +2,10 @@ const { Schema, model } = require('mongoose');
 const validate = require('mongoose-validator');
 
 const contentValidator = [
-    validate({
-        validator: 'isLength',
-        arguments: [200,3000]
-    })
+  validate({
+    validator: 'isLength',
+    arguments: [200, 3000]
+  })
 ];
 
 const courseSchema = new Schema(
@@ -17,12 +17,16 @@ const courseSchema = new Schema(
     },
     title: {
       type: String,
+      required: true
+    },
+    slug: {
+      type: String,
       required: true,
       unique: true
     },
     category: {
       type: String,
-      required: true,
+      required: true
     },
     media: {
       type: String,

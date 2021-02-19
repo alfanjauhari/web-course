@@ -9,16 +9,16 @@ module.exports = {
       content: data.content
     });
   },
-  isEmpty: (data) => {
-    for (let i in data) {
-      if (data.hasOwnProperty(i)) {
+  isEmpty: data => {
+    for (const i in data) {
+      if (Object.prototype.hasOwnProperty.call(data, i)) {
         return false;
       }
     }
 
     return true;
   },
-  hashPassword: async (data) => {
+  hashPassword: async data => {
     const password = await bcrypt.hash(data, 10);
 
     return password;

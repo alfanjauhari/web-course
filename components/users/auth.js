@@ -30,19 +30,12 @@ module.exports = {
         ]
       });
 
-      if (isEmpty(user))
-        throw new NotFoundError("Username or email doesn't exists!");
+      if (isEmpty(user)) throw new NotFoundError("Username or email doesn't exists!");
 
       const checkPassword = await bcrypt.compare(password, user.password);
-      if (!checkPassword)
-        throw new WrongPasswordError(
-          'Your password not match with our records!'
-        );
+      if (!checkPassword) throw new WrongPasswordError('Your password not match with our records!');
 
-      const token = jwt.sign(
-        { username: user.username },
-        process.env.JWT_SECRET
-      );
+      const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET);
 
       res.cookie('token', token, { httpOnly: true });
       return response(res, {
@@ -55,10 +48,7 @@ module.exports = {
         }
       });
     } catch (error) {
-      if (
-        error.name === 'NotFoundError' ||
-        error.name === 'WrongPasswordError'
-      ) {
+      if (error.name === 'NotFoundError' || error.name === 'WrongPasswordError') {
         return response(res, {
           code: 400,
           success: false,
@@ -100,10 +90,7 @@ module.exports = {
         password: hashedPassword
       });
 
-      const token = jwt.sign(
-        { username: createdUser.username },
-        process.env.JWT_SECRET
-      );
+      const token = jwt.sign({ username: createdUser.username }, process.env.JWT_SECRET);
 
       res.cookie('token', token, { httpOnly: true });
       return response(res, {

@@ -1,5 +1,4 @@
 const User = require('./user');
-const jwt = require('jsonwebtoken');
 const { response, isEmpty, hashPassword } = require('../../libs/helpers');
 const { NotFoundError } = require('../../errors');
 
@@ -57,8 +56,7 @@ module.exports = {
     try {
       const user = await User.findOne({ username });
 
-      if (isEmpty(user))
-        throw new NotFoundError(`User with username ${username} not found!`);
+      if (isEmpty(user)) throw new NotFoundError(`User with username ${username} not found!`);
 
       return response(res, {
         code: 200,

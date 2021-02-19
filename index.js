@@ -17,5 +17,4 @@ function normalizePort(port) {
 })();
 
 const port = normalizePort(process.env.PORT);
-// const port = normalizePort(4000);
 app.listen(port, () => console.log(`Application running on port ${port}`));

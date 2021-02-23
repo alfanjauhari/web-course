@@ -47,7 +47,7 @@ module.exports = {
    * @param {Express.Request} req
    * @param {Express.Response} res
    *
-   * @returns {Express.Response} Return ourse data with specific course data by querying
+   * @returns {Express.Response} Return course data with specific course data by querying
    * {slug} parameter from database
    */
   getOne: async (req, res) => {
@@ -63,6 +63,48 @@ module.exports = {
         success: true,
         message: `Successfuly get ${slug} data!`,
         content: course
+      });
+    } catch (error) {
+      if (error.name === 'NotFoundError') {
+        return response(res, {
+          code: 404,
+          success: false,
+          message: error.message
+        });
+      }
+
+      return response(res, {
+        code: 500,
+        success: false,
+        message: error.message || 'Something went wrong!',
+        content: error
+      });
+    }
+  },
+  /**
+   * Get all courses data with {category} parameter.
+   *
+   * @param {Express.Request} req
+   * @param {Express.Response} res
+   *
+   * @returns {Express.Response} Return courses data by querying
+   * {category} parameter from database
+   */
+  category: async (req, res) => {
+    const {category} = req.query;
+    
+    try {
+      const courses = await Course.find({ category });
+
+      if (isEmpty(courses)) {
+        throw new NotFoundError(`Courses with category ${category} not found!`);
+      }
+
+      return response(res, {
+        code: 200,
+        success: true,
+        message: 'Successfully get courses data!',
+        content: courses
       });
     } catch (error) {
       if (error.name === 'NotFoundError') {
@@ -149,7 +191,7 @@ module.exports = {
       return response(res, {
         code: 200,
         success: true,
-        message: 'Successfully update user',
+        message: 'Successfully update course',
         content: updatedCourse
       });
     } catch (error) {

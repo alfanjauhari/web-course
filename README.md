@@ -26,3 +26,7 @@
 2. Make changes and submit pull request
 3. I will merge it!
 4. Done
+
+# API Documentation
+
+https://documenter.getpostman.com/view/14458184/TWDaju7i

@@ -4,8 +4,7 @@ const courseSchema = new Schema(
   {
     teacherId: {
       type: Number,
-      required: true,
-      unique: true
+      required: true
     },
     title: {
       type: String,

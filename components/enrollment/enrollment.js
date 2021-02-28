@@ -4,11 +4,11 @@ const enrollmentSchema = new Schema(
   {
     studentId: {
       type: Number,
-      required: true,
+      required: true
     },
     courseId: {
       type: Number,
-      required: true,
+      required: true
     },
     dateEnrolled: {
       type: String,
@@ -17,7 +17,7 @@ const enrollmentSchema = new Schema(
     },
     status: {
       type: String,
-      required: true,
+      required: true
     }
   },
   {

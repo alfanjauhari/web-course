@@ -91,8 +91,8 @@ module.exports = {
    * {category} parameter from database
    */
   category: async (req, res) => {
-    const {category} = req.query;
-    
+    const { category } = req.query;
+
     try {
       const courses = await Course.find({ category });
 

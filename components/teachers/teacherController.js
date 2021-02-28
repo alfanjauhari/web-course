@@ -94,7 +94,8 @@ module.exports = {
 
     try {
       const newTeacher = await Teacher.create({
-        fullName, schoolName
+        fullName,
+        schoolName
       });
 
       return response(res, {

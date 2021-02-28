@@ -4,11 +4,11 @@ const teacherSchema = new Schema(
   {
     fullName: {
       type: String,
-      required: true,
+      required: true
     },
     schoolName: {
       type: String,
-      required: true,
+      required: true
     }
   },
   {

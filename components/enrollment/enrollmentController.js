@@ -86,7 +86,7 @@ module.exports = {
    *
    * @param {Express.Request} req
    * @param {Express.Response} res
-   * 
+   *
    * @todo Retrieve user data so this method doesn't need any body request for {studentId}
    *
    * @returns {Express.Response} Return new enrollment course data
@@ -100,7 +100,7 @@ module.exports = {
       const newEnroll = await Enrollment.create({
         courseId,
         studentId,
-        dateEnrolled: `${datetime.getDate()}-${datetime.getMonth()+1}-${datetime.getFullYear()}`,
+        dateEnrolled: `${datetime.getDate()}-${datetime.getMonth() + 1}-${datetime.getFullYear()}`,
         status: 'enrolled'
       });
 
